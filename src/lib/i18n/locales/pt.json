@@ -1,0 +1,274 @@
+{
+  "home_page": {
+    "alliance": {
+      "title": "Aliança",
+      "option_red": "Vermelha",
+      "option_blue": "Azul"
+    },
+    "team_number": "Número da Equipe",
+    "match_number": "Número da Partida",
+    "team_position": "Posição da Equipe",
+    "empty_position": "Selecione uma opção",
+    "validation_error_message": "Campo vazio!",
+    "storage_button": "Armazenamento",
+    "continue_button": "Iniciar",
+    "menu": {
+      "title": "Menu",
+      "option_config": "Configurações",
+      "option_guide": "Guia do Usuário",
+      "option_about": "Sobre",
+      "option_database": "Banco de Dados"
+    },
+    "database": {
+      "title": "Banco de Dados",
+      "message": "Selecione o banco de dados usado para enviar os dados. Se tiver dúvidas sobre como criar um, acesse o README em nosso repositório:",
+      "repository": "Repositório Github",
+      "useDB": "Usar Banco de Dados?",
+      "confirm_button": "Confirmar"
+    },
+    "settings": {
+      "title": "Configurações",
+      "themes_title": "Tema",
+      "colors_title": "Paleta de Cores",
+      "language_title": "Idioma",
+      "option_language": "Selecionar Idioma",
+      "option_theme": {
+        "title": "Tema",
+        "option_light": "Claro",
+        "option_dark": "Escuro",
+        "option_system": "Sistema"
+      },
+      "option_color": "Cor Primária",
+      "reset_data_button": "Apagar Todos os Dados",
+      "reset_data_title": "Aviso",
+      "reset_data_message": "Ao confirmar, todos os dados do aplicativo serão apagados. Deseja confirmar?",
+      "toast_confirmation": "Banco de dados salvo",
+      "toast_warning": "Aviso! Você não pode fazer uploads sem um banco de dados"
+    },
+    "database_alert": {
+      "title": "Alerta",
+      "message": "Antes de usar o aplicativo, recomendamos adicionar o banco de dados que será usado para armazenar as partidas na aba Menu. Se tiver dúvidas sobre como criar um, acesse nossa WIKI no repositório do projeto:",
+      "repository": "Repositório",
+      "menu_button": "Ir para \"Banco de Dados\""
+    }
+  },
+  "scanner": {
+    "title": "Scanner de QR Code",
+    "message": "Use este scanner para escanear os QR Codes das partidas. Clique em \"Escanear\" para ligar a câmera.",
+    "note": "Nota: Evite múltiplos QR Codes ao mesmo tempo durante o scanner.",
+    "scan_button": "Escanear",
+    "stop_button": "Parar",
+    "confirmation_modal": {
+      "title": "Armazenar Dados?",
+      "option_yes": "Sim",
+      "option_no": "Não",
+      "success_alert": "Armazenado",
+      "failure_alert": "Dados Repetidos"
+    }
+  },
+  "storage": {
+    "title": "Meu Armazenamento",
+    "filters": {
+      "all": "Todos",
+      "sent": "Enviados",
+      "not_sent": "Não Enviados"
+    },
+    "empty_message": "Não há partidas armazenadas!",
+    "team": "Equipe",
+    "match": "Partida",
+    "team_position": "Posição",
+    "upload_button": "Enviar",
+    "scan_button": "Escanear",
+    "modal": {
+      "title": "QR Code",
+      "scan_me": "Escaneie!"
+    }
+  },
+  "about": {
+    "title": "Sobre o Projeto",
+    "paragraph_1": "O projeto de um aplicativo de scouting surgiu no início de 2023, quando um membro da equipe de programação encontrou um repositório de um aplicativo simples, porém eficaz. Como o app era voltado para o jogo de 2022, foi necessário realizar mudanças para a nova temporada. Após um ano utilizando esse projeto inicial, decidimos dar um passo além e criar um aplicativo próprio da equipe.",
+    "purpose_title": "Objetivo do Projeto",
+    "paragraph_2": "O projeto do aplicativo MagicScouting surgiu da necessidade de um app mais completo do que seu antecessor. A equipe que trabalhou no projeto antigo queria criar algo com 100% de autoria própria, e foi isso que fizemos. Além disso, enxergamos este projeto como uma oportunidade de ajudar outras equipes durante a competição, e essa visão se tornou nosso objetivo.",
+    "creators": {
+      "title": "Criadores",
+      "creator_1": "Franco Valois De Luca",
+      "creator_2": "Gabrielli Fertig de Oliveira",
+      "creator_3": "Davi Feitosa Silva Santana",
+      "creator_4": "Helena Scussel Rosa"
+    },
+    "contribution_title": "Contribuição",
+    "paragraph_3": "Se você quiser ajudar o projeto, temos uma arrecadação aberta para que qualquer apoiador possa contribuir. Atualmente, o dinheiro arrecadado será usado para pagar a assinatura do aplicativo na Apple Store. Link abaixo:",
+    "fundraise_link": "Arrecadação FRC5800 Magic Scouting"
+  },
+  "autonomous": {
+    "title": "Autônomo",
+    "scores": "Acertos",
+    "misses": "Erros",
+    "leave_button": "Ponto de Leave",
+    "continue_button": "Continuar"
+  },
+  "teleop": {
+    "title": "TeleOp",
+    "endgame_title": "End Game",
+    "speaker": "Speaker",
+    "speaker_amplified": "Speaker Amplificado",
+    "amp": "Amp",
+    "scores": "Acertos",
+    "misses": "Erros",
+    "high_notes": {
+      "title": "High Notes",
+      "option1": "Human Player de outra equipe",
+      "option2": "0",
+      "option3": "1",
+      "option4": "2",
+      "option5": "3"
+    },
+    "trap": {
+      "title": "Trap",
+      "option1": "Não tentou",
+      "option2": "Errou",
+      "option3": "Acertou"
+    },
+    "climb": {
+      "title": "Climb",
+      "no_climb": "Sem Climb",
+      "l1": "L1",
+      "l2": "L2",
+      "l3": "L3"
+    },
+    "note_cycle": {
+      "title": "Controle de Ciclo",
+      "source": "Fonte",
+      "start_cycle": "Iniciar",
+      "option_floor": "Chão",
+      "timer": "Tempo de Ciclo",
+      "pause": "Pausar",
+      "cancel_confirmation": "Clique novamente para cancelar"
+    },
+    "climb_points": "Pontos de Climb",
+    "climb_cycle": {
+      "title": "Ciclo de Climb",
+      "start_cycle": "Iniciar"
+    },
+    "continue_button": "Continuar"
+  },
+  "info": {
+    "title": "Informações Adicionais",
+    "team_role": "Função da Equipe",
+    "robot_status": "Algum Problema?",
+    "coopertition": "Bônus de Coopertition",
+    "attack": "Pontuador",
+    "defense": "Defensor",
+    "support": "Feeder",
+    "yes": "Sim",
+    "no": "Não",
+    "continue_button": "Continuar",
+    "safe": "Seguro",
+    "broke": "Quebrou",
+    "communication_fault": "Comunicação",
+    "mobility": "Mobilidade"
+  },
+  "qrcode": {
+    "title": "Dados de Scouting",
+    "or": "OU",
+    "qrcode_button": "QR Code",
+    "upload_button": "Enviar",
+    "store_button": "Armazenar",
+    "finish_button": "Finalizar",
+    "confirmation_modal": {
+      "title": "Resetar App?",
+      "yes_button": "Sim",
+      "no_button": "Não"
+    }
+  },
+  "misc": {
+    "close_button": "Fechar",
+    "visualize_button": "Visualizar",
+    "confirm_button": "Confirmar",
+    "edit_button": "Editar",
+    "delete_button": "Excluir",
+    "cancel_button": "Cancelar",
+    "save_button": "Salvar",
+    "none": "Nenhum",
+    "seconds": "Segundos",
+    "collected_title": "Coletado em:",
+    "feeding": "Feeding",
+    "field": "Campo",
+    "value": "Valor",
+    "edit_table": "Editar Tabela"
+  },
+  "dataAnalysis": {
+    "title": "Dashboard",
+    "average_points": "Pontuação Média",
+    "average_cycle": "Ciclo Médio",
+    "average_leave": "Leave Médio",
+    "sync_button": "Sincronizar Dados",
+    "database_alert": "Aviso! Defina o seu banco de dados",
+    "analytics_subtitle": "Análises",
+    "leaderboard_subtitle": "Leaderboard",
+    "teams_analytics": "Análise de Times",
+    "match_analytics": "Análise de Partida",
+    "teams_picklist": "Picklist de Equipes",
+    "match_simulation": "Simulação de Partida",
+    "teamAnalysis": {
+      "title": "Análise de Times",
+      "searchBar_text": "Buscar por equipe",
+      "searchBar_placeholder": "Número de Equipe",
+      "team_epa": "EPA do Time",
+      "team_winrate": "Winrate",
+      "average_points": "Pontuação Média",
+      "analytics_subtitle": "Análise Aprofundada",
+      "pit_data": "Dados de Pit",
+      "teleop_analytics": "Análise de TeleOp",
+      "auto_analytics": "Análise de Auto",
+      "endgame_analytics": "Análise de Endgame",
+      "gp_points": "Pontos de Game Piece",
+      "points_by_period": "Pontos por Período",
+      "team_function": "Função do Time",
+      "climb_profile": "Desempenho Climb",
+      "scoring_profile": "Desempenho Pontuação",
+      "score_by_match": "Pontos por Partida",
+      "cycle_by_match": "Ciclo por Partida",
+      "climb_time": "Tempo Climb",
+      "climb_points": "Pontos Climb"
+    },
+    "matchAnalysis": {
+      "title": "Análise de Partida",
+      "searchBar_text": "Buscar por equipe",
+      "searchBar_placeholder": "Número de Equipe",
+      "points_subtitle": "Análise de Pontos",
+      "climb_subtitle": "Análise Climb",
+      "gp_points_teams": "Pontos de GP Teams",
+      "gp_points_spots": "Pontos de GP"
+    },
+    "picklist": {
+      "title": "Picklist de Times",
+      "teamNumber": "Equipe",
+      "score_by_match": "Pontos por Partida",
+      "fuel_by_match": "Fuel/Part",
+      "auto_points": "Pts Auto",
+      "avg_auto_fuel": "Fuel Auto",
+      "auto_climb_rate": "Esc Auto %",
+      "avg_auto_climb_time": "Tempo Esc Auto",
+      "teleop_points": "Pts TeleOp",
+      "avg_teleop_fuel": "Fuel TeleOp",
+      "avg_feeding_fuel": "Fuel Feed",
+      "teleop_l1_rate": "L1 %",
+      "teleop_l2_rate": "L2 %",
+      "teleop_l3_rate": "L3 %",
+      "avg_teleop_climb_time": "Tempo Esc TeleOp",
+      "passes_by_bump_rate": "Passe Bump %",
+      "passes_by_trench_rate": "Passe Trench %"
+    },
+    "simulation": {
+      "title": "Simulação de Partida",
+      "analyze_alliance": "Analisar Aliança",
+      "win_chance": "Vitória",
+      "points_analytics": "Análise de Pontos",
+      "winner": "Vencedor",
+      "tie": "Empate",
+      "alliance_one": "Aliança 1",
+      "alliance_two": "Aliança 2"
+    }
+  }
+}

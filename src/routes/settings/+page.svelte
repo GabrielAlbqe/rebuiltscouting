@@ -1,0 +1,254 @@
+<script>
+  // @ts-nocheck
+  import { run } from 'svelte/legacy';
+
+  
+  import SelectInput from '$lib/components/SelectInput.svelte';
+  import theme from '$lib/shared/stores/darkMode.js';
+  import colorTheme from '$lib/shared/stores/colorTheme.js';
+  import { locale, _ } from 'svelte-i18n';
+  import dataBase from '$lib/shared/stores/dataBase';
+  import { useDB }  from '$lib/shared/stores/dataBase';
+  import { goto } from '$app/navigation';
+  import { onMount } from "svelte";
+  import { fade } from "svelte/transition";
+  import matchAnalysisData from '$lib/shared/stores/matchAnalysisData';
+  import { MatchSchema, PitSchema, PitTeamsDB, TeamsDB } from '$lib/shared/stores/teamsData';
+	import teamAnalysisData from '$lib/shared/stores/teamAnalysisData';
+	import entriesSync, { syncedEntries } from '$lib/shared/stores/toSyncData';
+	import simulationData from '$lib/shared/stores/simulationData';
+
+  /**
+   * @typedef {Object} Props
+   * @property {boolean} [showDataBase]
+   */
+
+  /** @type {Props} */
+  let { showDataBase = $bindable(false) } = $props();
+    let team_database = $derived($useDB ? $dataBase : '');
+  
+    let linguagens = [
+      { id: '1', content: 'English', value: 'en-US' },
+      { id: '2', content: 'Português (Brasil)', value: 'pt-BR' },
+      { id: '3', content: 'Español', value: 'es' }
+    ];
+  
+    let themes = $derived([
+      { id: '1', content: $_('home_page.settings.option_theme.option_light'), value: 'light' },
+      { id: '2', content: $_('home_page.settings.option_theme.option_dark'), value: 'dark' },
+      { id: '3', content: $_('home_page.settings.option_theme.option_system'), value: 'system' }
+    ]);
+  
+    let colors = [
+      { content: 'blue', color: "#35CEE8", background: 'checked:bg-[#35CEE8]' },
+      { content: 'purple', color: "#9235E8", background: 'checked:bg-[#9235E8]' },
+      { content: 'red', color: "#E8281E", background: 'checked:bg-[#E8281E]' },
+      { content: 'green', color: "#35E89A", background: 'checked:bg-[#35E89A]' },
+      { content: 'pink', color: "#D92793", background: 'checked:bg-[#D92793]' }
+    ];
+  
+    let showMoreThemes = 'hidden';
+    let showMoreLanguages = 'hidden';
+  
+    // @ts-ignore
+    let selected_language = $derived($locale);
+    let selected_theme = $state($theme);
+    let selected_color = $state($colorTheme);
+    run(() => {
+    if(selected_color != $colorTheme) {
+        $colorTheme = selected_color;
+        document.querySelector("html")?.setAttribute("theme", $colorTheme);
+      }
+  });
+    run(() => {
+    $colorTheme = selected_color;
+  });
+  
+    function handle_theme_selection() {
+      $theme = selected_theme;
+      console.log("bolos")
+      let systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      let htmlTagClasses = document.querySelector('html').classList;
+      if ($theme == 'dark') {
+			htmlTagClasses.remove('light');
+			htmlTagClasses.add('dark');
+			document.querySelector('html')?.setAttribute('data-theme', 'dark');
+		} else if ($theme == 'light') {
+			htmlTagClasses.remove('dark');
+			htmlTagClasses.add('light');
+			document.querySelector('html')?.setAttribute('data-theme', 'light');
+		} else {
+			htmlTagClasses.remove('dark');
+			htmlTagClasses.remove('light');
+			htmlTagClasses.add(systemTheme);
+			document.querySelector('html')?.setAttribute('data-theme', systemTheme);
+		}
+    }
+  
+    function handle_language_selection() {
+      while($locale != selected_language) $locale = selected_language;
+      window.localStorage.setItem('language', $locale);
+    }
+  
+    function handleDataBase() {
+        if (team_database.includes("script.google")){
+            $dataBase = team_database[team_database.length-1] == "?" ? team_database : team_database + "?";
+            showDataBase = false;
+        }else{
+            alert("Url invalido");
+        }        
+    }
+    let showDatabaseConfirm = $state(false);
+
+    function triggerToast() {
+      if (team_database.includes("script.google")){
+        showDatabaseConfirm = true;
+        
+        setTimeout(() => {
+          showDatabaseConfirm = false;
+        }, 3000); // Disappears after 3 seconds
+      }
+    }
+
+    let showDatabaseAlert = $state(false);
+
+      function handleToggleChange() {
+        if (JSON.parse($useDB) == "") {
+          showDatabaseAlert = true;
+          setTimeout(() => {
+            showDatabaseAlert = false;
+          }, 3000);
+        }
+      }
+
+    function handleClearData(){      
+      Object.keys(localStorage).forEach(field => localStorage.removeItem(field))
+      matchAnalysisData.set({})
+      teamAnalysisData.set({})
+      colorTheme.set('blue')
+      theme.set('system')
+      locale.set('en')
+      dataBase.set('')
+      useDB.set(true)
+      PitSchema.set([])
+      PitTeamsDB.set([])
+      TeamsDB.set([])
+      MatchSchema.set([])
+      entriesSync.set([])
+      syncedEntries.set([])
+      simulationData.set({
+				alliance1: {},
+				alliance2: {}
+			})
+
+      console.log(localStorage)
+      goto("/")
+    }
+
+</script>
+
+<div class="w-full flex grow gap-4 mb-6 flex-col items-start">
+  <h2 class="text-xl font-medium tracking-wide">{$_('home_page.settings.language_title')}</h2>
+  <SelectInput
+      options={linguagens}
+      bind:value={selected_language}
+      name={'language'}
+      handler={handle_language_selection}
+    />
+</div>
+
+<div class="w-full flex grow gap-4 mb-6 flex-col items-start">
+  <h2 class="text-xl font-medium tracking-wide">{$_('home_page.settings.themes_title')}</h2>
+  <SelectInput
+      options={themes}
+      bind:value={selected_theme}
+      name={'theme'}
+      handler={handle_theme_selection}
+    />
+</div>
+
+<div class="w-full flex grow gap-4 mb-6 flex-col items-start">
+  <h2 class="text-xl font-medium tracking-wide">{$_('home_page.settings.colors_title')}</h2>
+  <div
+    class="input input-bordered flex flex-row justify-around flex-wrap w-full h-fit p-1"
+    id="colorContainer"
+  >
+    {#each colors as color}
+    <input type="radio" name="colors" value={color.content} class="radio h-12 w-12 border-[{color.color}] color-[{color.color}] outline-[{color.color}] {color.background}" bind:group={selected_color}/>
+    {/each}
+  </div>
+</div>
+
+
+<div class="w-full flex grow gap-4 mb-6 flex-col items-start">
+  <div class="flex flex-row w-full gap-4 items-center">
+    <h2 class="text-xl font-medium tracking-wide">{$_('home_page.database.title')}</h2>
+    <div class="form-control">
+      <label class="label cursor-pointer">
+        <input type="checkbox" class="toggle toggle-success" name="useDB" checked={JSON.parse($useDB)}
+        onclick={(params) => {
+          $useDB = !$useDB
+      }} 
+        onchange={()=>{handleToggleChange()}}/>
+      </label>
+    </div>
+  </div>
+  <div class="flex flex-col items-center">
+    <p class="text-base text-justify text-gray-600 dark:text-gray-400">{$_('home_page.database.message')} <a href="https://github.com/FRC5800/MagicScouting" class="m-4 underline text-primary-base">{$_('home_page.database.repository')}</a></p>
+  </div>
+  <div class="flex flex-col items-center rounded-md min-w-fit useDatabase">
+    <div class="center-container">
+      
+    </div>
+  </div>
+  <div class="flex flex-row gap-2 w-full">
+    <input disabled={!JSON.parse($useDB)} type="text" bind:value={team_database} placeholder="Database" class="input input-bordered p-2 text-base rounded-md grow w-full">
+    <button disabled={!JSON.parse($useDB)} onclick={()=>{handleDataBase();triggerToast()}} class="{JSON.parse($useDB) ? '' : 'disabled-btn'} btn-primary hover:bg-primary-base bg-buttons border-buttons p-2 px-4 w-fit rounded-lg btn  mt-0 min-w-8">
+      <i class="fi fi-br-angle-right text-xl flex"></i>
+    </button>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<button class="m-0 font-bold btn btn-block btn-error" onclick={()=>{document.getElementById('resetDataConfirmation').showModal()}} >
+  {$_('home_page.settings.reset_data_button')}
+</button> 
+<!-- DAVI EMBONITAR ISSO AQUI -->
+
+<div transition:fade class="toast toast-top toast-end">
+  {#if showDatabaseConfirm}
+  <div class="alert alert-success shadow-lg">
+    <span>{$_('home_page.settings.toast_confirmation')}</span>
+    </div>
+  {/if}
+  {#if showDatabaseAlert}
+    <div class="alert alert-warning shadow-lg max-w-xs">
+      <span class="text-wrap">{$_('home_page.settings.toast_warning')}</span>
+    </div>
+  {/if}
+</div>
+
+<dialog id={"resetDataConfirmation"} class="modal">
+  <div class="modal-box">
+      <form method="dialog">
+          <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+      </form>
+      
+      <div class="flex flex-col justify-center items-center">
+          <h1 class="text-[1.8rem] font-semibold">{$_('home_page.settings.reset_data_title')}</h1>
+          <h1 class="text-[1.0rem] mt-2 font-semibold">{$_('home_page.settings.reset_data_message')}</h1>
+      </div>
+      <button class="m-0 mt-4 font-bold btn btn-block btn-error" onclick={()=>{handleClearData()}} >
+        {$_('misc.confirm_button')}
+      </button> 
+
+  </div>
+  <form method="dialog" class="modal-backdrop">
+      <button>{$_('misc.close_button')}</button>
+  </form>
+</dialog>
+
+<style lang="postcss">
+
+</style>

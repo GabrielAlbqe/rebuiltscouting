@@ -1,0 +1,73 @@
+<!-- @migration-task Error while migrating Svelte code: `<th>` cannot be a child of `<thead>`. `<thead>` only allows these children: `<tr>`, `<style>`, `<script>`, `<template>`. The browser will 'repair' the HTML (by moving, removing, or inserting elements) which breaks Svelte's assumptions about the structure of your components.
+https://svelte.dev/e/node_invalid_placement -->
+<script>
+// @ts-nocheck
+
+    import teamAnalysisData from "$lib/shared/stores/teamAnalysisData";
+    import { PitTeamsDB } from "$lib/shared/stores/teamsData";
+    import { goto } from "$app/navigation";
+    import { App } from '@capacitor/app';
+    App.addListener("backButton", () => {goto("/dataAnalisys/teamAnalisys")});
+
+    import { onMount } from "svelte";
+    export let data;
+    let teamData = $teamAnalysisData[data.selectedTeam];
+    let pitScoutingSelectedData;
+
+    let mounted = false;
+    onMount(() => {
+        console.log("Pit Data Page")
+        console.log($PitTeamsDB)
+
+        for (let i = 0; i < $PitTeamsDB.length; i++){
+            if ($PitTeamsDB[i].teamNumber == teamData.teamNumber){
+                pitScoutingSelectedData = $PitTeamsDB[i]
+            }
+        }
+        mounted = true;
+    })
+    function getGoogleDriveImageUrl(fileId) {
+        let fid = fileId.split("=")
+        fid = fid[fid.length - 1]
+        console.log(fid)
+
+        return `https://drive.google.com/uc?export=view&id=${fid}`;
+
+        // return `https://drive.google.com/thumbnail?id=${fid}&sz=w1000`;
+    }
+
+</script>
+{#if mounted}
+    <div class="w-full flex flex-row gap-4 items-center justify-center pt-6 pb-6 bg-transparent sticky top-0 z-10 bg-opacity-50 rounded backdrop-blur-lg drop-shadow-lg">
+        <i on:click={()=>{goto("/dataAnalisys/teamAnalisys")}} class="fi fi-rr-angle-left flex mx-6 btn bg-transparent border-none"></i>
+        <div class="grow flex flex-row gap-4 items-center">
+
+            <img width="50px" src={teamData.logo} alt="Team Logo" />
+            <div class="flex flex-row gap-2">
+                <div>{teamData.teamNumber}</div>
+                <div>{teamData.nameNumber}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="overflow-x-auto mb-24">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Camp</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {#each Object.keys(pitScoutingSelectedData) as key}
+                    {#if key != "robotPicture" && key != "timeStamp" && key != "robot64"}
+                        <tr>
+                            <th>{key}</th>
+                            <td>{pitScoutingSelectedData[key]}</td>
+                        </tr>
+                    {/if}
+                {/each}
+            </tbody>
+        </table>
+    </div>
+{/if}
